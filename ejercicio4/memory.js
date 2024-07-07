@@ -31,7 +31,28 @@ class Card {
         const cardElement = this.element.querySelector(".card");
         cardElement.classList.remove("flipped");
     }
+
+    toggleFlip() {
+        this.isFlipped = !this.isFlipped;
+        if (this.isFlipped) {
+            this.#flip();
+        } else {
+            this.#unflip();
+
+
+        }
+
+
 }
+
+matches(otherCard) {
+    return this.name === otherCard.name;
+}
+}
+
+
+
+
 
 class Board {
     constructor(cards) {
@@ -58,6 +79,13 @@ class Board {
         this.fixedGridElement.className = `fixed-grid has-${columns}-cols`;
     }
 
+
+
+    shuffleCards() {
+        this.cards.sort(() => Math.random() - 0.5);
+        
+    }
+
     render() {
         this.#setGridColumns();
         this.gameBoardElement.innerHTML = "";
@@ -69,12 +97,33 @@ class Board {
         });
     }
 
+
+   
+    flipDownAllCards() {
+        this.cards.forEach((card) => {
+            if (card.isFlipped) {
+                card.toggleFlip();
+            }
+        });
+    }
+
+    reset() {
+        this.shuffleCards();
+        this.flipDownAllCards();
+        this.render();
+    }
+
     onCardClicked(card) {
         if (this.onCardClick) {
             this.onCardClick(card);
         }
     }
 }
+
+
+
+
+
 
 class MemoryGame {
     constructor(board, flipDuration = 500) {
@@ -123,5 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("restart-button").addEventListener("click", () => {
         memoryGame.resetGame();
+
+
+
     });
 });
