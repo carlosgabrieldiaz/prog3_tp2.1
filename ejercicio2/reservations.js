@@ -1,7 +1,44 @@
-class Customer {}
+class Customer {
+    constructor (id, name, email) {
+        this.id= id;
+        this.name= name;
+        this.email= email;
 
-class Reservation {}
+    }
 
+
+get info(){
+
+    return `${this.name}  (${this.email})`;
+
+
+
+}
+
+}
+
+
+class Reservation {
+
+    constructor(id, customer, date, guests) {
+        this.id = id;
+        this.customer= costumer;
+        this.date= new Date(date);
+        this.guests= guests;
+    }
+
+get info() {
+
+
+    return `Reserva para${this.customer.info} el ${this.data.toLocateString()} para ${this.guests}comensales.`;
+}
+static validateReservation(date, guests) {
+    const reservationDate = new Date(date);
+    const currentDate = new Date();
+    return reservationDate > currentDate && guest > 0;
+
+}
+}
 class Restaurant {
     constructor(name) {
         this.name = name;
@@ -37,32 +74,20 @@ class Restaurant {
     }
 }
 
-document
-    .getElementById("reservation-form")
-    .addEventListener("submit", function (event) {
+document.getElementById("reservation-form").addEventListener("submit", function (event) {
         event.preventDefault();
 
         const customerName = document.getElementById("customer-name").value;
         const customerEmail = document.getElementById("customer-email").value;
-        const reservationDate =
-            document.getElementById("reservation-date").value;
+        const reservationDate = document.getElementById("reservation-date").value;
         const guests = parseInt(document.getElementById("guests").value);
 
         if (Reservation.validateReservation(reservationDate, guests)) {
             const customerId = restaurant.reservations.length + 1;
             const reservationId = restaurant.reservations.length + 1;
 
-            const customer = new Customer(
-                customerId,
-                customerName,
-                customerEmail
-            );
-            const reservation = new Reservation(
-                reservationId,
-                customer,
-                reservationDate,
-                guests
-            );
+            const customer = new Customer(customerId, customerName, customerEmail);
+            const reservation = new Reservation(reservationId, customer, reservationDate, guests);
 
             restaurant.addReservation(reservation);
             restaurant.render();
@@ -83,3 +108,6 @@ if (Reservation.validateReservation(reservation1.date, reservation1.guests)) {
 } else {
     alert("Datos de reserva inválidos");
 }
+
+
+
